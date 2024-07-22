@@ -3,3 +3,7 @@ let subtract = (a, b) => a - b;
 let multiply = (a, b) => a * b;
 let divide = (a, b) => a / b;
 
+let firstOperand;
+let secondOperand;
+let operation;
+
