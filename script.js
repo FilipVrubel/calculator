@@ -23,3 +23,17 @@ function operate(num1, num2, op) {
             break;
     }
 }
+
+let displayVal = 0;
+
+function changeDisplay(newDisplay) {
+    if (isNaN(parseInt(newDisplay))) return;
+
+    console.log(parseInt(newDisplay))
+    const display = document.querySelector(".display");
+    display.textContent = newDisplay;
+    displayVal = newDisplay;
+}
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => button.addEventListener("click", (e) => changeDisplay(e.target.textContent)));
