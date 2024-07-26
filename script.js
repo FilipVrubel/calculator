@@ -31,8 +31,8 @@ function changeDisplay(newDisplay) {
 
     console.log(parseInt(newDisplay))
     const display = document.querySelector(".display");
-    display.textContent = newDisplay;
-    displayVal = newDisplay;
+    displayVal = displayVal * 10 + parseInt(newDisplay);
+    display.textContent = displayVal;
 }
 
 const buttons = document.querySelectorAll("button");
