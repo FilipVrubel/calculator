@@ -42,6 +42,7 @@ function operate(num1, num2, op) {
     }
  
     firstOperand = result;
+    secondOperand = null;
     changeDisplay(result);
 }
 
@@ -75,7 +76,7 @@ function changeDisplay(newDisplay) {
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) => button.addEventListener("click", (e) => {
-    changeDisplay(e.target.textContent);
+    changeDisplay(e.target.textContent);    
     lastButton = e.target.textContent;
 
 }));
@@ -100,6 +101,17 @@ clearButton.addEventListener("click", () => {
     firstNumberAssigned = false;
 });
 
+const equalSign = document.querySelector(".equal");
+equalSign.addEventListener("click", () => {
+    if (firstOperand === undefined) return;
+
+    if (secondOperand === null || secondOperand === undefined) {
+        secondOperand = firstOperand;
+    } 
+    operate(firstOperand, secondOperand, operation);
+    operation = 0;
+
+})
 /* 
 1
 +
