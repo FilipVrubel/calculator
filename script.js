@@ -6,7 +6,7 @@ let divide = (a, b) => a / b;
 let firstOperand;
 let secondOperand;
 let operation = 0;  
-let lastButton;
+let lastButton; 
 let firstNumberAssigned = false;
 
 /*  1. User clicks number
@@ -40,7 +40,7 @@ function operate(num1, num2, op) {
             result = divide(num1, num2);
             break;
     }
-
+ 
     firstOperand = result;
     changeDisplay(result);
 }
@@ -49,6 +49,7 @@ function operate(num1, num2, op) {
 function changeOperand(num) {   
     if (!firstNumberAssigned) {
         firstOperand = num;
+
     } else {
         secondOperand = num;
     }
@@ -88,6 +89,16 @@ operations.forEach((op) => op.addEventListener("click", (e) => {
     }
     operation = e.target.textContent;
 }));
+
+const clearButton = document.querySelector(".clear");
+clearButton.addEventListener("click", () => {
+    changeDisplay(0);
+    firstOperand = undefined;
+    secondOperand = undefined;
+    operation = 0;
+    lastButton = undefined;
+    firstNumberAssigned = false;
+});
 
 /* 
 1
