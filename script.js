@@ -73,6 +73,7 @@ function changeDisplay(newDisplay) {
     if (typeof newDisplay === "number") {
         display.textContent = String(newDisplay);
         displayVal = newDisplay;
+        changeOperand(displayVal);
         return;
     }
 
@@ -122,6 +123,12 @@ equalSign.addEventListener("click", () => {
     operation = 0;
 
 })
+
+const percent = document.querySelector(".percent");
+percent.addEventListener("click", () => {
+    changeDisplay(displayVal / 100);
+})
+
 /* 
 1
 +
