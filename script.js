@@ -9,21 +9,6 @@ let operation = 0;
 let lastButton; 
 let firstNumberAssigned = false;
 
-/*  1. User clicks number
-        - firstOperand equals that number
-    2. User clicks operation
-        - assign it to the operation variable
-    3. User click second number
-        - assign it to the secondOperand variable
-    4. User clicks another operation
-        - Call operate with those 3 variables (firstOperand, secondOperand, operation)
-        - need to parse the numbers
-        - change the operation variable to the new operation
-    6. Change display with the result
-    7. Asign the result to the first operand
-    When to call the operate function?
-    When the second operand is given
-    */
 function operate(num1, num2, op) {
     let result;
     switch (op) {
@@ -52,7 +37,7 @@ function operate(num1, num2, op) {
 
 function divError() {
     const display = document.querySelector(".display");
-    display.textContent = "DivError";
+    display.textContent = "LOL";
 }
 
 function changeOperand(num) {   
@@ -63,12 +48,13 @@ function changeOperand(num) {
         secondOperand = num;
     }
 }
+
 let displayVal = 0;
 
 function changeDisplay(newDisplay) {
-    if (isNaN(parseInt(newDisplay))) return;
-
     const display = document.querySelector(".display");
+
+    if (isNaN(parseInt(newDisplay))) return;
 
     if (typeof newDisplay === "number") {
         display.textContent = String(newDisplay);
@@ -80,14 +66,12 @@ function changeDisplay(newDisplay) {
     displayVal = (!isNaN(parseInt(lastButton)) || lastButton == "⌫") ? displayVal * 10 + parseInt(newDisplay) : parseInt(newDisplay);
     display.textContent = String(displayVal);
     changeOperand(displayVal);
-
 }
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) => button.addEventListener("click", (e) => {
-    changeDisplay(e.target.textContent);    
+    changeDisplay(e.target.textContent);
     lastButton = e.target.textContent;
-
 }));
 
 const operations = document.querySelectorAll(".operation");
@@ -121,7 +105,6 @@ equalSign.addEventListener("click", () => {
     } 
     operate(firstOperand, secondOperand, operation);
     operation = 0;
-
 })
 
 const percent = document.querySelector(".percent");
@@ -129,22 +112,3 @@ percent.addEventListener("click", () => changeDisplay(displayVal / 100));
 
 const backspace = document.querySelector(".backspace");
 backspace.addEventListener("click", () => changeDisplay(Math.trunc(displayVal / 10)));
-
-/* 
-1
-+
-2
-* => 3
-4
-- => 12
-2
-/ => 10
-5
-+ => 2
-
-
-a) 1 -> backspace -> 0 // 1 digit => reset to zero
-b) 10 -> backspace -> 1 // More digit => divide by 10 and truncate
-
-Both are esentially the same case
-*/
