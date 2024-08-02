@@ -77,7 +77,7 @@ function changeDisplay(newDisplay) {
         return;
     }
 
-    displayVal = !isNaN(parseInt(lastButton)) ? displayVal * 10 + parseInt(newDisplay) : parseInt(newDisplay);
+    displayVal = (!isNaN(parseInt(lastButton)) || lastButton == "⌫") ? displayVal * 10 + parseInt(newDisplay) : parseInt(newDisplay);
     display.textContent = String(displayVal);
     changeOperand(displayVal);
 
@@ -125,9 +125,10 @@ equalSign.addEventListener("click", () => {
 })
 
 const percent = document.querySelector(".percent");
-percent.addEventListener("click", () => {
-    changeDisplay(displayVal / 100);
-})
+percent.addEventListener("click", () => changeDisplay(displayVal / 100));
+
+const backspace = document.querySelector(".backspace");
+backspace.addEventListener("click", () => changeDisplay(Math.trunc(displayVal / 10)));
 
 /* 
 1
@@ -140,4 +141,10 @@ percent.addEventListener("click", () => {
 / => 10
 5
 + => 2
+
+
+a) 1 -> backspace -> 0 // 1 digit => reset to zero
+b) 10 -> backspace -> 1 // More digit => divide by 10 and truncate
+
+Both are esentially the same case
 */
