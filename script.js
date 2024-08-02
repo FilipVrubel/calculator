@@ -37,6 +37,10 @@ function operate(num1, num2, op) {
             result = multiply(num1, num2);
             break;
         case "÷":
+            if (num2 === 0) {
+                clearCalculator();
+                divError();
+            }
             result = divide(num1, num2);
             break;
     }
@@ -46,6 +50,10 @@ function operate(num1, num2, op) {
     changeDisplay(result);
 }
 
+function divError() {
+    const display = document.querySelector(".display");
+    display.textContent = "DivError";
+}
 
 function changeOperand(num) {   
     if (!firstNumberAssigned) {
@@ -92,14 +100,16 @@ operations.forEach((op) => op.addEventListener("click", (e) => {
 }));
 
 const clearButton = document.querySelector(".clear");
-clearButton.addEventListener("click", () => {
+clearButton.addEventListener("click", () => clearCalculator());
+
+function clearCalculator() {
     changeDisplay(0);
     firstOperand = undefined;
     secondOperand = undefined;
     operation = 0;
     lastButton = undefined;
     firstNumberAssigned = false;
-});
+}
 
 const equalSign = document.querySelector(".equal");
 equalSign.addEventListener("click", () => {
