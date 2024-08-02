@@ -5,35 +5,99 @@ let divide = (a, b) => a / b;
 
 let firstOperand;
 let secondOperand;
-let operation;
+let operation = 0;  
+let lastButton;
+let firstNumberAssigned = false;
 
+/*  1. User clicks number
+        - firstOperand equals that number
+    2. User clicks operation
+        - assign it to the operation variable
+    3. User click second number
+        - assign it to the secondOperand variable
+    4. User clicks another operation
+        - Call operate with those 3 variables (firstOperand, secondOperand, operation)
+        - need to parse the numbers
+        - change the operation variable to the new operation
+    6. Change display with the result
+    7. Asign the result to the first operand
+    When to call the operate function?
+    When the second operand is given
+    */
 function operate(num1, num2, op) {
+    let result;
     switch (op) {
         case "+":
-            add(num1, num2);
+            result = add(num1, num2);
             break;
-        case "-":
-            subtract(num1, num2);
+        case "−":
+            result = subtract(num1, num2);
             break;
-        case "*":
-            multiply(num1, num2);
+        case "×":
+            result = multiply(num1, num2);
             break;
-        case "/":
-            divide(num1, num2);
+        case "÷":
+            result = divide(num1, num2);
             break;
     }
+
+    firstOperand = result;
+    changeDisplay(result);
 }
 
+
+function changeOperand(num) {   
+    if (!firstNumberAssigned) {
+        firstOperand = num;
+    } else {
+        secondOperand = num;
+    }
+}
 let displayVal = 0;
 
 function changeDisplay(newDisplay) {
     if (isNaN(parseInt(newDisplay))) return;
 
-    console.log(parseInt(newDisplay))
     const display = document.querySelector(".display");
-    displayVal = displayVal * 10 + parseInt(newDisplay);
-    display.textContent = displayVal;
+
+    if (typeof newDisplay === "number") {
+        display.textContent = String(newDisplay);
+        displayVal = newDisplay;
+        return;
+    }
+
+    displayVal = !isNaN(parseInt(lastButton)) ? displayVal * 10 + parseInt(newDisplay) : parseInt(newDisplay);
+    display.textContent = String(displayVal);
+    changeOperand(displayVal);
+
 }
 
 const buttons = document.querySelectorAll("button");
-buttons.forEach((button) => button.addEventListener("click", (e) => changeDisplay(e.target.textContent)));
+buttons.forEach((button) => button.addEventListener("click", (e) => {
+    changeDisplay(e.target.textContent);
+    lastButton = e.target.textContent;
+
+}));
+
+const operations = document.querySelectorAll(".operation");
+operations.forEach((op) => op.addEventListener("click", (e) => {
+    lastButton = e.target.textContent;
+    firstNumberAssigned = true;
+    if (operation !== 0) {
+        operate(firstOperand, secondOperand, operation);
+    }
+    operation = e.target.textContent;
+}));
+
+/* 
+1
++
+2
+* => 3
+4
+- => 12
+2
+/ => 10
+5
++ => 2
+*/
